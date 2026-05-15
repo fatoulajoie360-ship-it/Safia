@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Carte Anniversaire Safia</title>
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
   <style>
     * {
       margin: 0;
@@ -37,15 +38,20 @@
       inset: 0;
       border-radius: 32px;
       overflow: hidden;
-      background: rgba(255,255,255,0.9);
+      background: rgba(255,255,255,0.92);
       backdrop-filter: blur(10px);
       box-shadow:
         0 30px 60px rgba(0,0,0,0.22),
         inset 0 1px 6px rgba(255,255,255,0.6);
       transform: translateY(180px) scale(0.72) rotateX(10deg);
       opacity: 0;
-      transition: transform 1.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.4s ease;
+      transition:
+        transform 1.6s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 1.2s ease;
       will-change: transform, opacity;
+      backface-visibility: hidden;
+      z-index: 2;
+      z-index: 2;
     }
 
     .card.show {
@@ -62,7 +68,7 @@
 
     .content {
       height: 38%;
-      padding: 18px 24px 12px;
+      padding: 18px 24px 14px;
       text-align: center;
       background: linear-gradient(to bottom, rgba(255,255,255,0.96), rgba(255,248,240,0.98));
       display: flex;
@@ -75,7 +81,7 @@
       letter-spacing: 4px;
       text-transform: uppercase;
       color: #c39b47;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       font-weight: 600;
     }
 
@@ -83,20 +89,20 @@
       font-size: 2.8rem;
       font-family: Georgia, serif;
       color: #1d1d1d;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-weight: 700;
     }
 
     .date {
       color: #777;
       letter-spacing: 2px;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       font-size: 1rem;
     }
 
     .message {
       font-size: 1rem;
-      line-height: 1.7;
+      line-height: 1.6;
       color: #444;
     }
 
@@ -105,7 +111,6 @@
       color: #c39b47;
       font-style: italic;
       font-family: Georgia, serif;
-      padding-bottom: 8px;
     }
 
     .envelope {
@@ -116,9 +121,13 @@
       align-items: center;
       cursor: pointer;
       z-index: 10;
-      transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.5s ease, filter 1.5s ease;
+      transition:
+        transform 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+        opacity 1.2s ease,
+        filter 1.2s ease;
       transform-style: preserve-3d;
       will-change: transform, opacity;
+      backface-visibility: hidden;
     }
 
     .envelope.open {
@@ -220,25 +229,10 @@
       font-size: 1.35rem;
       font-weight: 700;
       color: #9b6b2f;
-      letter-spacing: 0.5px;
       text-shadow: 0 2px 12px rgba(255,255,255,0.95);
       z-index: 999;
-      opacity: 1;
-      pointer-events: none;
       white-space: nowrap;
       animation: floatingText 2.5s ease-in-out infinite;
-    }
-
-    @keyframes floatingText {
-      0%, 100% {
-        transform: translateX(-50%) translateY(0px);
-        opacity: 0.85;
-      }
-
-      50% {
-        transform: translateX(-50%) translateY(-6px);
-        opacity: 1;
-      }
     }
 
     .hearts {
@@ -253,51 +247,6 @@
       position: absolute;
       opacity: 0;
       animation: floatUp 5s linear forwards;
-    }
-
-    @keyframes flapMove {
-      from {
-        transform: rotateX(0deg);
-      }
-      to {
-        transform: rotateX(7deg);
-      }
-    }
-
-    @keyframes luxuryGlow {
-      0%,100% {
-        transform: translate(-50%, -50%) scale(1);
-        box-shadow: 0 0 18px rgba(255,215,0,0.3);
-      }
-      50% {
-        transform: translate(-50%, -50%) scale(1.05);
-        box-shadow: 0 0 35px rgba(255,215,0,0.65);
-      }
-    }
-
-    @keyframes textGlow {
-      0%,100% {
-        transform: scale(1);
-        opacity: 0.85;
-      }
-      50% {
-        transform: scale(1.04);
-        opacity: 1;
-      }
-    }
-
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) scale(0.5);
-        opacity: 0;
-      }
-      20% {
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-700px) scale(1.4);
-        opacity: 0;
-      }
     }
 
     #closeCard {
@@ -315,11 +264,53 @@
       z-index: 9999;
       display: none;
       box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: transform 0.3s ease;
     }
 
-    #closeCard:hover {
-      transform: scale(1.05);
+    @keyframes floatingText {
+      0%,100% {
+        transform: translateX(-50%) translateY(0px);
+        opacity: 0.85;
+      }
+
+      50% {
+        transform: translateX(-50%) translateY(-6px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes flapMove {
+      from {
+        transform: rotateX(0deg);
+      }
+      to {
+        transform: rotateX(7deg);
+      }
+    }
+
+    @keyframes luxuryGlow {
+      0%,100% {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      50% {
+        transform: translate(-50%, -50%) scale(1.05);
+      }
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(0.5);
+        opacity: 0;
+      }
+
+      20% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-700px) scale(1.4);
+        opacity: 0;
+      }
     }
 
     @media (max-width: 480px) {
@@ -339,23 +330,22 @@
 
       .message {
         font-size: 0.95rem;
-        line-height: 1.5;
       }
 
       .signature {
-        margin-top: 8px;
         font-size: 0.95rem;
       }
-    }
     }
   </style>
 </head>
 <body>
+
   <audio id="birthdayMusic" loop>
     <source src="https://files.catbox.moe/7i57en.mp3" type="audio/mpeg">
   </audio>
 
   <div class="container">
+
     <div class="card" id="card">
       <img src="https://files.catbox.moe/2l8ky6.jpg" alt="Safia" class="photo">
 
@@ -399,58 +389,91 @@
     const closeBtn = document.getElementById('closeCard');
 
     let opened = false;
+    let animating = false;
     let heartsInterval = null;
     let confettiInterval = null;
 
     envelope.addEventListener('click', () => {
-      if (opened) return;
+
+      if (opened || animating) return;
+
+      animating = true;
 
       opened = true;
 
       envelope.classList.add('open');
       card.classList.add('show');
 
-      music.play().catch(() => {});
-
       closeBtn.style.display = 'block';
+
+      music.currentTime = 0;
+      music.play().catch(() => {});
 
       confettiInterval = setInterval(() => {
         confetti({
-          particleCount: 30,
-          spread: 100,
+          particleCount: 25,
+          spread: 90,
           startVelocity: 35,
           origin: {
             x: Math.random(),
             y: Math.random() - 0.2
           }
         });
-      }, 300);
+      }, 350);
 
       createHearts();
 
       heartsInterval = setInterval(() => {
         createHearts();
       }, 2500);
+
+      setTimeout(() => {
+        animating = false;
+      }, 1800);
     });
 
     closeBtn.addEventListener('click', () => {
 
-      envelope.classList.remove('open');
-      card.classList.remove('show');
+      if (animating) return;
 
-      closeBtn.style.display = 'none';
-
-      music.pause();
-      music.currentTime = 0;
+      animating = true;
+      opened = false;
 
       clearInterval(confettiInterval);
       clearInterval(heartsInterval);
 
-      opened = false;
+      heartsContainer.innerHTML = '';
+
+      music.pause();
+      music.currentTime = 0;
+
+      card.classList.remove('show');
+
+      setTimeout(() => {
+        envelope.classList.remove('open');
+        closeBtn.style.display = 'none';
+
+        envelope.style.transition = 'none';
+        card.style.transition = 'none';
+
+        void envelope.offsetWidth;
+        void card.offsetWidth;
+
+        envelope.style.transition = '';
+        card.style.transition = '';
+
+      }, 300);
+
+      setTimeout(() => {
+        animating = false;
+      }, 1800);
+
     });
 
     function createHearts() {
+
       for (let i = 0; i < 20; i++) {
+
         const heart = document.createElement('div');
 
         heart.className = 'heart';
