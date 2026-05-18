@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -312,6 +313,72 @@
         opacity: 0;
       }
     }
+.site-popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.45);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:10000;
+  padding:20px;
+}
+
+.site-popup-content{
+  width:100%;
+  max-width:420px;
+  background:rgba(255,255,255,0.96);
+  border-radius:30px;
+  padding:35px 28px;
+  text-align:center;
+  box-shadow:0 20px 45px rgba(0,0,0,0.18);
+  animation:popupAppear 0.4s ease;
+}
+
+.site-popup-content h2{
+  color:#9b6b2f;
+  margin-bottom:15px;
+}
+
+.site-popup-content p{
+  color:#666;
+  line-height:1.6;
+  margin-bottom:25px;
+}
+
+.return-btn{
+  display:inline-block;
+  padding:14px 26px;
+  border-radius:18px;
+  text-decoration:none;
+  background:linear-gradient(145deg,#f4dfbf,#d7ae78);
+  color:#5e3d10;
+  font-weight:700;
+  margin-bottom:15px;
+}
+
+.close-site-popup{
+  display:block;
+  margin:auto;
+  border:none;
+  background:#eee;
+  padding:12px 22px;
+  border-radius:16px;
+  cursor:pointer;
+  font-weight:600;
+}
+
+@keyframes popupAppear{
+  from{
+    opacity:0;
+    transform:scale(0.85);
+  }
+
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
 
     @media (max-width: 480px) {
       .container {
@@ -403,7 +470,15 @@
 
       envelope.classList.add('open');
       card.classList.add('show');
+setTimeout(() => {
 
+  const popup = document.getElementById('sitePopup');
+
+  if(popup){
+    popup.style.display = 'flex';
+  }
+
+}, 6000);
       closeBtn.style.display = 'block';
 
       music.currentTime = 0;
@@ -469,7 +544,15 @@
       }, 1800);
 
     });
+function closeSitePopup(){
 
+  const popup = document.getElementById('sitePopup');
+
+  if(popup){
+    popup.style.display = 'none';
+  }
+
+}
     function createHearts() {
 
       for (let i = 0; i < 20; i++) {
@@ -492,5 +575,29 @@
       }
     }
   </script>
+  <div id="sitePopup" class="site-popup">
+
+  <div class="site-popup-content">
+
+    <h2>💖 Vous aimez cette carte ?</h2>
+
+    <p>
+      Revenez sur Wonder's_House pour commander votre propre carte interactive personnalisée ✨
+    </p>
+
+    <a
+      href="https://fatoulajoie360-ship-it.github.io/Wise_house/"
+      class="return-btn"
+    >
+      ⬅️ Revenir au site
+    </a>
+
+    <button onclick="closeSitePopup()" class="close-site-popup">
+      Fermer
+    </button>
+
+  </div>
+
+</div>
 </body>
 </html>
